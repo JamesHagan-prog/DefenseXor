@@ -1,0 +1,41 @@
+Main Idea:
+Defense of the Planet Xor is a top down space themed shooter.
+The game is played all through command line, with the user giving
+commands to control the ship.
+The goal of the game is to make it so no enemies reach the bottom
+of the screen.
+Implementation
+The program will be self contained in a main, header, and function files.
+Almost every action of the game will be done through function calls, with the 
+exception of a few loops.
+//Launch
+When launching the program, a function will be called to give a title screen
+showing a logo graphic for the game, as well as then giving a text based
+story narrative. (Think opening crawl for Star Wars)
+//Game Start
+After launching, the user will be loaded into the game world.
+The user will see the main map, as shown below, which displays the current
+score, high score, and game board.
+//Example Map:
+-------------------------
+Score: 35  High Score: 55
+   ~ ~ ~ ~ X ~ ~ ~ ~ ~
+   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+   ~ ~ X ~ ~ ~ ~ ~ ~ ~
+   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+   ~ X ~ ~ ~ ~ ~ ~ ~ ~
+   ~ ~ ~ ~ ~ ~ ~ ~ X ~
+   ~ ~ ~ ~ ~ ~ ~ X ~ ~
+   ~ ~ ~ ~ ~ X ~ ~ ~ ~
+   ~ ~ ~ ~ ^ ~ ~ ~ ~ ~
+-------------------------
+//Movement
+There are 4 commands in the game. < for moving left, > for moving right,
+f for fire, and q to quit. Every time a command is carried out, the 
+enemy ships (X) will move down one space. This can be countered if the
+player aligns their ship (^) underneath the enemy and fires. This will destroy
+the first enemy ship the bullet comes in contact with, awarding the player 
+5 points. The game is lost if the player runs into an enemy or if an enemy
+goes past the end of the board.
+
