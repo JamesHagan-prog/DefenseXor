@@ -2,9 +2,10 @@ Main Idea:
 Defense of the Planet Xor is a top down space themed shooter.
 The game is played all through command line, with the user giving
 commands to control the ship.
-The goal of the game is to make it so no enemies reach the bottom
+The goal of the game is to make it so no enemy reached the bottom
 of the screen.
-Implementation
+
+Implementation:
 The program will be self contained in a main, header, and function files.
 Almost every action of the game will be done through function calls, with the 
 exception of a few loops.
