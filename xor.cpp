@@ -5,7 +5,7 @@ void printMenu(int &xVal) {
   std::cout
       << "\n\n\n\n\n\n\n\n____________________________________________\n       "
          "   Welcome to XOR\n_____________________________________________\n"
-      << "The name of the game is to prevent the enemeis (shown as "
+      << "The name of the game is to prevent the enemies (shown as "
          "\"X's)\nfrom getting to the bottom of the board\nYour ship (shown as "
          "\"^\" can move side to side and also has the ability to shoot and "
          "destroyed enemies in its column\nEvery move or fire action takes a "
