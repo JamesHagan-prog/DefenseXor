@@ -1,13 +1,6 @@
 #include "xor.h"
 
-int main (void) {
-<<<<<<< HEAD
-    playGame();
-=======
-    srand(time(0));
-    playGame();
-
-
->>>>>>> origin/main
-
+int main(void) {
+  srand(time(0));
+  playGame();
 }
