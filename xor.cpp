@@ -1,15 +1,5 @@
 #include "xor.h"
 
-void playGame() {
-  int xSize = 9;
-  printMenu(xSize);
-  int score = 0;
-  int highScore = 50;
-  char gameBoard[xSize][MAX_Y_SIZE]; // Gameboard
-  setupBoard(gameBoard, xSize);
-  displayBoard(gameBoard, score, highScore, xSize);
-}
-
 void printMenu(int &xSize) {
   std::string userInput = ".";
   std::cout
@@ -63,14 +53,26 @@ void playGame() {
     int highScore = 50;
     char gameBoard[xSize][MAX_Y_SIZE]; // Gameboard
     setupBoard(gameBoard, xSize);
-    int playPos = 0;
+    int playPos = xSize / 2;
     while (choice != 'q' || choice != 'Q') {
-        //playPos = findPlayerPosition(gameBoard, xSize);
+        if (score > highScore) {
+            highScore = score;
+        }
+        playPos = findPlayerPosition(gameBoard, xSize);
         displayBoard(gameBoard, score, highScore, xSize);
         cout << "Enter your move: ";
         cin >> choice;
-        if (choice == 'q' || choice == 'Q') 
+        if (choice == 'q' || choice == 'Q') {
             return;
+        }
+        if(validateMove(choice, playPos, xSize)) {
+            if (choice == 'F' || choice == 'f') {
+                fire(playPos, gameBoard, score);
+            }
+            else {
+
+            }
+        }
     }
     cout << "Thanks for playing!" << endl;
 }
