@@ -17,7 +17,7 @@ void printMenu(int &xVal) {
     std::cin >> userInput;
   }
 
-  std::cout << "Difficulty | Easy - Medium - Hard |";
+  std::cout << "Difficulty | Easy - Medium - Hard |" << endl;
 }
 
 void displayBoard() {}
@@ -39,19 +39,28 @@ void setupBoard(char gameBoard[][MAX_Y_SIZE], int xSize) {
 }
 
 void playGame() {
-  int xSize = 9;
-  printMenu(xSize);
-  int score = 0;
-  int highScore = 50;
-  char gameBoard[xSize][MAX_Y_SIZE]; // Gameboard
-  setupBoard(gameBoard, xSize);
-  displayBoard(gameBoard, score, highScore, xSize);
+    char choice = '\n';
+    int xSize = 9;
+    printMenu(xSize);
+    int score = 0;
+    int highScore = 50;
+    char gameBoard[xSize][MAX_Y_SIZE]; // Gameboard
+    setupBoard(gameBoard, xSize);
+    int playPos = 0;
+    while (choice != 'q' || choice != 'Q') {
+        //playPos = findPlayerPosition(gameBoard, xSize);
+        displayBoard(gameBoard, score, highScore, xSize);
+        cout << "Enter your move: ";
+        cin >> choice;
+        if (choice == 'q' || choice == 'Q') 
+            return;
+    }
+    cout << "Thanks for playing!" << endl;
 }
 
 void printMenu() {}
 
-void displayBoard(char gameBoard[][MAX_Y_SIZE], int score, int highScore,
-                  int xSize) {
+void displayBoard(char gameBoard[][MAX_Y_SIZE], int score, int highScore, int xSize) {
   cout << "Score: " << score << " High Score: " << highScore << endl;
   for (int i = 0; i < xSize; i++)
     cout << "--";
@@ -69,3 +78,13 @@ void displayBoard(char gameBoard[][MAX_Y_SIZE], int score, int highScore,
 }
 
 bool validateMove(char choice) {}
+
+void fire(int playerPos, char gameBoard[][MAX_Y_SIZE], int score) {
+    for(int i = 11; i >= 0; i--) {
+        if (gameBoard[playerPos][i] == 'X') {
+            gameBoard[playerPos][i] = '~';
+            score += 5;
+            return;
+        }
+    }
+}
