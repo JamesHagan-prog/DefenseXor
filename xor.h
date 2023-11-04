@@ -16,6 +16,8 @@ void displayBoard(char gameBoard[][MAX_Y_SIZE], int score, int highScore,
                   int xSize);
 void runTurn(char gameBoard[][MAX_Y_SIZE]);
 bool validateMove(char choice, int, int);
-void fire(int playerPos, char gameBoard[][MAX_Y_SIZE], int score);
+void fire(int playerPos, char gameBoard[][MAX_Y_SIZE], int &score);
+int findPlayerPosition(char gameBoard[][MAX_Y_SIZE], int);
+void movePlayer(char, char[][MAX_Y_SIZE], int);
 
 #endif

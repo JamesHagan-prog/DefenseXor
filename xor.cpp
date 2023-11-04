@@ -1,13 +1,38 @@
 #include "xor.h"
 
 void playGame() {
+  char choice = '\n';
   int xSize = 9;
   printMenu(xSize);
   int score = 0;
   int highScore = 50;
   char gameBoard[xSize][MAX_Y_SIZE]; // Gameboard
   setupBoard(gameBoard, xSize);
-  displayBoard(gameBoard, score, highScore, xSize);
+  int playPos = 0;
+
+  while (choice != 'q' || choice != 'Q') {
+    if (score > highScore) {
+      highScore = score;
+    }
+    playPos = findPlayerPosition(gameBoard, xSize);
+    std::cout << "player positin: " << playPos << "\n\n\n";
+    displayBoard(gameBoard, score, highScore, xSize);
+    cout << "Enter your move: ";
+    cin >> choice;
+
+    if (choice == 'q' || choice == 'Q') {
+      return;
+    }
+
+    if (validateMove(choice, playPos, xSize)) {
+      if (choice == 'F' || choice == 'f') {
+        fire(playPos, gameBoard, score);
+      } else {
+        movePlayer(choice, gameBoard, playPos);
+      }
+    }
+  }
+  cout << "Thanks for playing!" << endl;
 }
 
 void printMenu(int &xSize) {
@@ -55,29 +80,10 @@ void setupBoard(char gameBoard[][MAX_Y_SIZE], int xSize) {
   gameBoard[xSize / 2][11] = '^';
 }
 
-void playGame() {
-    char choice = '\n';
-    int xSize = 9;
-    printMenu(xSize);
-    int score = 0;
-    int highScore = 50;
-    char gameBoard[xSize][MAX_Y_SIZE]; // Gameboard
-    setupBoard(gameBoard, xSize);
-    int playPos = 0;
-    while (choice != 'q' || choice != 'Q') {
-        //playPos = findPlayerPosition(gameBoard, xSize);
-        displayBoard(gameBoard, score, highScore, xSize);
-        cout << "Enter your move: ";
-        cin >> choice;
-        if (choice == 'q' || choice == 'Q') 
-            return;
-    }
-    cout << "Thanks for playing!" << endl;
-}
-
 void printMenu() {}
 
-void displayBoard(char gameBoard[][MAX_Y_SIZE], int score, int highScore, int xSize) {
+void displayBoard(char gameBoard[][MAX_Y_SIZE], int score, int highScore,
+                  int xSize) {
   cout << "Score: " << score << " High Score: " << highScore << endl;
   for (int i = 0; i < xSize; i++)
     cout << "--";
@@ -125,19 +131,37 @@ bool validateMove(char choice, int playerPos, int xSize) {
 }
 
 int findPlayerPosition(char gameBoard[][MAX_Y_SIZE], int xSize) {
-  for (int i; i < xSize; i++) {
+  for (int i = 0; i < xSize; i++) {
     if (gameBoard[i][MAX_Y_SIZE - 1] == '^') {
       return i;
     }
   }
   return 0;
 }
-void fire(int playerPos, char gameBoard[][MAX_Y_SIZE], int score) {
-    for(int i = 11; i >= 0; i--) {
-        if (gameBoard[playerPos][i] == 'X') {
-            gameBoard[playerPos][i] = '~';
-            score += 5;
-            return;
-        }
+
+void fire(int playerPos, char gameBoard[][MAX_Y_SIZE], int &score) {
+  for (int i = 11; i >= 0; i--) {
+    if (gameBoard[playerPos][i] == 'X') {
+      gameBoard[playerPos][i] = '~';
+      score += 5;
+      return;
     }
+  }
+}
+
+void movePlayer(char direction, char gameBoard[][MAX_Y_SIZE], int playPos) {
+  switch (direction) {
+  case 'A':
+  case 'a':
+    gameBoard[playPos][MAX_Y_SIZE - 1] = '~';
+    gameBoard[playPos - 1][MAX_Y_SIZE - 1] = '^';
+    break;
+  case 'D':
+  case 'd':
+    gameBoard[playPos][MAX_Y_SIZE - 1] = '~';
+    gameBoard[playPos + 1][MAX_Y_SIZE - 1] = '^';
+    break;
+  default:
+    break;
+  }
 }
