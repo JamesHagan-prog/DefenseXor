@@ -15,7 +15,7 @@ void printMenu(int &xSize) {
   std::cout
       << "\n\n\n\n\n\n\n\n____________________________________________\n       "
          "   Welcome to XOR\n_____________________________________________\n"
-      << "The name of the game is to prevent the enemeis (shown as "
+      << "The name of the game is to prevent the enemies (shown as "
          "\"X's)\nfrom getting to the bottom of the board\nYour ship (shown as "
          "\"^\" can move side to side and also has the ability to shoot and "
          "destroyed enemies in its column\nEvery move or fire action takes a "
@@ -55,8 +55,29 @@ void setupBoard(char gameBoard[][MAX_Y_SIZE], int xSize) {
   gameBoard[xSize / 2][11] = '^';
 }
 
-void displayBoard(char gameBoard[][MAX_Y_SIZE], int score, int highScore,
-                  int xSize) {
+void playGame() {
+    char choice = '\n';
+    int xSize = 9;
+    printMenu(xSize);
+    int score = 0;
+    int highScore = 50;
+    char gameBoard[xSize][MAX_Y_SIZE]; // Gameboard
+    setupBoard(gameBoard, xSize);
+    int playPos = 0;
+    while (choice != 'q' || choice != 'Q') {
+        //playPos = findPlayerPosition(gameBoard, xSize);
+        displayBoard(gameBoard, score, highScore, xSize);
+        cout << "Enter your move: ";
+        cin >> choice;
+        if (choice == 'q' || choice == 'Q') 
+            return;
+    }
+    cout << "Thanks for playing!" << endl;
+}
+
+void printMenu() {}
+
+void displayBoard(char gameBoard[][MAX_Y_SIZE], int score, int highScore, int xSize) {
   cout << "Score: " << score << " High Score: " << highScore << endl;
   for (int i = 0; i < xSize; i++)
     cout << "--";
@@ -110,4 +131,13 @@ int findPlayerPosition(char gameBoard[][MAX_Y_SIZE], int xSize) {
     }
   }
   return 0;
+}
+void fire(int playerPos, char gameBoard[][MAX_Y_SIZE], int score) {
+    for(int i = 11; i >= 0; i--) {
+        if (gameBoard[playerPos][i] == 'X') {
+            gameBoard[playerPos][i] = '~';
+            score += 5;
+            return;
+        }
+    }
 }
