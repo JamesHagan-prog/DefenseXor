@@ -7,7 +7,7 @@ void playGame() {
   int score = 0;
   int highScore = 50;
   char gameBoard[xSize][MAX_Y_SIZE]; // Gameboard
-  setupBoard(gameBoard, xSize);
+  setupBoard(gameBoard, xSize, score);
   int playPos = 0;
 
   while (choice != 'q' || choice != 'Q') {
@@ -15,7 +15,6 @@ void playGame() {
       highScore = score;
     }
     playPos = findPlayerPosition(gameBoard, xSize);
-    std::cout << "player positin: " << playPos << "\n\n\n";
     displayBoard(gameBoard, score, highScore, xSize);
     cout << "Enter your move: ";
     cin >> choice;
@@ -30,6 +29,7 @@ void playGame() {
       } else {
         movePlayer(choice, gameBoard, playPos);
       }
+      runTurn(xSize, gameBoard, score);
     }
   }
   cout << "Thanks for playing!" << endl;
@@ -38,14 +38,14 @@ void playGame() {
 void printMenu(int &xSize) {
   std::string userInput = ".";
   std::cout
-      << "\n\n\n\n\n\n\n\n____________________________________________\n       "
-         "   Welcome to XOR\n_____________________________________________\n"
+      << "\n\n\n\n\n\n\n\n_________________________________________________\n       "
+         "   Welcome to XOR\n_________________________________________________\n"
       << "The name of the game is to prevent the enemies (shown as "
          "\"X's)\nfrom getting to the bottom of the board\nYour ship (shown as "
-         "\"^\" can move side to side and also has the ability to shoot and "
-         "destroyed enemies in its column\nEvery move or fire action takes a "
-         "turn, and beware the enemies move one row closer to the bottom after "
-         "every turn!\n if they reach the bottom you lose!)\n";
+         "\"^\" can move side to side and \nalso has the ability to shoot and "
+         "destroy enemies in its column\nEvery move or fire action takes a "
+         "turn, and beware the \nenemies move one row closer to the bottom after "
+         "every turn! \nif they reach the bottom you lose!)\n";
 
   while (userInput != "Enter") {
     std::cout << "Type Enter To Start: ";
@@ -64,12 +64,39 @@ void printMenu(int &xSize) {
     xSize = 15;
   }
 
-  cout << "\n\n\n______STARTING XOR______\n\n\n";
+  cout << "\n\n______STARTING XOR______\n\n";
 }
 
-void runTurn() {}
+void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score){
+  char cont = '\n';
+  int ran = rand() % 2;
+  for (int j = 11; j >= 0; j--) {
+    for (int i = 0; i < xSize; i++) {
+      if (gameBoard[i][j] == 'X') {
+        if (j + 1 == 11 || gameBoard[i][j + 1] == '^') {
+          cout << "GAME OVER" << endl << "Would you like to Continue? (y or n) ";
+          cin >> cont;
+          if (cont == 'y' || cont == 'Y') {
+            setupBoard(gameBoard, xSize, score);
+            return;
+          }
+          else {
+            exit(0);
+          }
+        }
+        else {
+          gameBoard[i][j] = '~';
+          gameBoard[i][j + 1] = 'X';
+        }
+      }
+    }
+  }
+  if (ran == 1) {
+    gameBoard[rand() % xSize][0] = 'X';
+  }
+}
 
-void setupBoard(char gameBoard[][MAX_Y_SIZE], int xSize) {
+void setupBoard(char gameBoard[][MAX_Y_SIZE], int xSize,int &score) {
   for (int j = 0; j < MAX_Y_SIZE; j++) {
     for (int i = 0; i < xSize; i++) {
       gameBoard[i][j] = '~';
@@ -78,6 +105,7 @@ void setupBoard(char gameBoard[][MAX_Y_SIZE], int xSize) {
   int randInt = rand() % xSize;
   gameBoard[randInt][0] = 'X';
   gameBoard[xSize / 2][11] = '^';
+  score = 0;
 }
 
 void printMenu() {}
