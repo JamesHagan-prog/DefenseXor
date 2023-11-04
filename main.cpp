@@ -1,11 +1,7 @@
-using namespace std;
-
-#include <iostream>
-#include <ctime>
+#include "xor.h"
 
 int main (void) {
-
-
+    playGame();
 
     
 }
