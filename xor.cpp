@@ -1,6 +1,8 @@
 #include "xor.h"
 
 void playGame() {
+  
+  
   char choice = '\n';
   int mult = 1;
   int xSize = 9;
@@ -26,7 +28,7 @@ void playGame() {
 
     if (validateMove(choice, playPos, xSize)) {
       if (choice == 'F' || choice == 'f') {
-        fire(playPos, gameBoard, score, mult);
+        fire(playPos, gameBoard, score, mult, highScore);
       } else {
         movePlayer(choice, gameBoard, playPos);
       }
@@ -182,11 +184,14 @@ int findPlayerPosition(char gameBoard[][MAX_Y_SIZE], int xSize) {
   return 0;
 }
 
-void fire(int playerPos, char gameBoard[][MAX_Y_SIZE], int &score, int mult) {
+void fire(int playerPos, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int &highScore) {
   for (int i = 11; i >= 0; i--) {
     if (gameBoard[playerPos][i] == 'X') {
       gameBoard[playerPos][i] = '~';
       score += 10 * mult;
+      if (score > highScore) {
+      highScore = score;
+      }
       return;
     }
   }
