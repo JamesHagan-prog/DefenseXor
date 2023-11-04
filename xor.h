@@ -14,7 +14,7 @@ void printMenu(int &xVal);
 void playGame();
 void displayBoard(char gameBoard[][MAX_Y_SIZE], int score, int highScore,
                   int xSize);
-void runTurn();
-bool validateMove(char choice);
+void runTurn(char gameBoard[][MAX_Y_SIZE]);
+bool validateMove(char choice, int, int);
 
 #endif
