@@ -29,7 +29,7 @@ Score: 35  High Score: 55
    ~ ~ ~ ~ ~ ~ ~ ~ X ~
    ~ ~ ~ ~ ~ ~ ~ X ~ ~
    ~ ~ ~ ~ ~ X ~ ~ ~ ~
-   ~ ~ ~ ~ ^ ~ ~ ~ ~ ~
+   ~ ~ ~ ~ ^ ~ ~ ~ ~ ~ 
 -------------------------
 //Movement
 There are 4 commands in the game. < for moving left, > for moving right,
