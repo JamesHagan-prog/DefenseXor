@@ -40,3 +40,17 @@ the first enemy ship the bullet comes in contact with, awarding the player
 5 points. The game is lost if the player runs into an enemy or if an enemy
 goes past the end of the board.
 
+while(quit or lostgame) {
+  displayBoard();
+  choice = getkey();
+
+
+  waitt 50 ms
+
+
+  if(getKey is valid move) {
+    move player or fire
+  }
+
+  endTurn()
+}

@@ -110,6 +110,7 @@ bool validateMove(char choice, int playerPos, int xSize) {
   case 'A':
   case 'a':
     if (playerPos == 0) {
+      std::cout << "\nINVALID MOVE\n";
       return false;
     } else {
       return true;
@@ -118,7 +119,8 @@ bool validateMove(char choice, int playerPos, int xSize) {
   case 'D':
   case 'd':
 
-    if (playerPos == xSize) {
+    if (playerPos == (xSize - 1)) {
+      std::cout << "\nINVALID MOVE\n";
       return false;
     } else {
       return true;
