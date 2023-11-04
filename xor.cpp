@@ -2,8 +2,9 @@
 
 void playGame() {
   char choice = '\n';
+  int mult = 1;
   int xSize = 9;
-  printMenu(xSize);
+  printMenu(xSize, mult);
   int score = 0;
   int highScore = 50;
   char gameBoard[xSize][MAX_Y_SIZE]; // Gameboard
@@ -25,17 +26,17 @@ void playGame() {
 
     if (validateMove(choice, playPos, xSize)) {
       if (choice == 'F' || choice == 'f') {
-        fire(playPos, gameBoard, score);
+        fire(playPos, gameBoard, score, mult);
       } else {
         movePlayer(choice, gameBoard, playPos);
       }
-      runTurn(xSize, gameBoard, score);
+      runTurn(xSize, gameBoard, score, mult, highScore);
     }
   }
   cout << "Thanks for playing!" << endl;
 }
 
-void printMenu(int &xSize) {
+void printMenu(int &xSize, int &mult) {
   std::string userInput = ".";
   std::cout
       << "\n\n\n\n\n\n\n\n_________________________________________________\n       "
@@ -57,24 +58,31 @@ void printMenu(int &xSize) {
 
   if (userInput == "Easy") {
     xSize = 5;
+    mult = 1;
   } else if (userInput == "Medium") {
     xSize = 9;
+    mult = 2;
 
   } else if (userInput == "Hard") {
     xSize = 15;
+    mult = 3;
   }
 
   cout << "\n\n______STARTING XOR______\n\n";
 }
 
-void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score){
+void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int highScore){
   char cont = '\n';
   int ran = rand() % 2;
   for (int j = 11; j >= 0; j--) {
     for (int i = 0; i < xSize; i++) {
       if (gameBoard[i][j] == 'X') {
         if (j + 1 == 11 || gameBoard[i][j + 1] == '^') {
-          cout << "GAME OVER" << endl << "Would you like to Continue? (y or n) ";
+          cout << "GAME OVER" << endl << "Your Score: " << score << endl;
+          if (score == highScore){
+            cout << "NEW HIGH SCORE!" << endl;
+          }
+          cout << "Would you like to Continue? (y or n) ";
           cin >> cont;
           if (cont == 'y' || cont == 'Y') {
             setupBoard(gameBoard, xSize, score);
@@ -91,7 +99,12 @@ void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score){
       }
     }
   }
-  if (ran == 1) {
+  if (mult != 3) {
+    if (ran == 1) {
+      gameBoard[rand() % xSize][0] = 'X';
+    }
+  }
+  else {
     gameBoard[rand() % xSize][0] = 'X';
   }
 }
@@ -169,11 +182,11 @@ int findPlayerPosition(char gameBoard[][MAX_Y_SIZE], int xSize) {
   return 0;
 }
 
-void fire(int playerPos, char gameBoard[][MAX_Y_SIZE], int &score) {
+void fire(int playerPos, char gameBoard[][MAX_Y_SIZE], int &score, int mult) {
   for (int i = 11; i >= 0; i--) {
     if (gameBoard[playerPos][i] == 'X') {
       gameBoard[playerPos][i] = '~';
-      score += 5;
+      score += 10 * mult;
       return;
     }
   }
