@@ -43,12 +43,12 @@ void printMenu(int &xSize, int &mult) {
          "   Welcome to XOR\n_________________________________________________\n"
       << "The name of the game is to prevent the enemies (shown as "
          "\"X's)\nfrom getting to the bottom of the board\nYour ship (shown as "
-         "\"^\" can move side to side and \nalso has the ability to shoot and "
+         "\"A\" can move side to side and \nalso has the ability to shoot and "
          "destroy enemies in its column\nEvery move or fire action takes a "
          "turn, and beware the \nenemies move one row closer to the bottom after "
          "every turn! \nif they reach the bottom you lose!)\n";
 
-  while (userInput != "Enter") {
+  while (userInput != "Enter" && userInput != "enter") {
     std::cout << "Type Enter To Start: ";
     std::cin >> userInput;
   }
@@ -77,9 +77,9 @@ void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int 
   for (int j = 11; j >= 0; j--) {
     for (int i = 0; i < xSize; i++) {
       if (gameBoard[i][j] == 'X') {
-        if (j + 1 == 11 || gameBoard[i][j + 1] == '^') {
+        if (j + 1 == 11 || gameBoard[i][j + 1] == 'A') {
           cout << "GAME OVER" << endl << "Your Score: " << score << endl;
-          if (score == highScore){
+          if (score >= highScore){
             cout << "NEW HIGH SCORE!" << endl;
           }
           cout << "Would you like to Continue? (y or n) ";
@@ -117,7 +117,7 @@ void setupBoard(char gameBoard[][MAX_Y_SIZE], int xSize,int &score) {
   }
   int randInt = rand() % xSize;
   gameBoard[randInt][0] = 'X';
-  gameBoard[xSize / 2][11] = '^';
+  gameBoard[xSize / 2][11] = 'A';
   score = 0;
 }
 
@@ -175,7 +175,7 @@ bool validateMove(char choice, int playerPos, int xSize) {
 
 int findPlayerPosition(char gameBoard[][MAX_Y_SIZE], int xSize) {
   for (int i = 0; i < xSize; i++) {
-    if (gameBoard[i][MAX_Y_SIZE - 1] == '^') {
+    if (gameBoard[i][MAX_Y_SIZE - 1] == 'A') {
       return i;
     }
   }
@@ -197,12 +197,12 @@ void movePlayer(char direction, char gameBoard[][MAX_Y_SIZE], int playPos) {
   case 'A':
   case 'a':
     gameBoard[playPos][MAX_Y_SIZE - 1] = '~';
-    gameBoard[playPos - 1][MAX_Y_SIZE - 1] = '^';
+    gameBoard[playPos - 1][MAX_Y_SIZE - 1] = 'A';
     break;
   case 'D':
   case 'd':
     gameBoard[playPos][MAX_Y_SIZE - 1] = '~';
-    gameBoard[playPos + 1][MAX_Y_SIZE - 1] = '^';
+    gameBoard[playPos + 1][MAX_Y_SIZE - 1] = 'A';
     break;
   default:
     break;
