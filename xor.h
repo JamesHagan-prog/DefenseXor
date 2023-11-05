@@ -6,8 +6,8 @@ using namespace std;
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include <ncurses.h>
-#include <unistd.h>  // For usleep function
+#include <stdlib.h>
+
 
 const int MAX_Y_SIZE = 12; // Default
 

@@ -1,8 +1,7 @@
 #include "xor.h"
 
 void playGame() {
-  
-  
+  cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
   char choice = '\n';
   int mult = 1;
   int xSize = 9;
@@ -14,6 +13,7 @@ void playGame() {
   int playPos = 0;
 
   while (choice != 'q' || choice != 'Q') {
+    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     if (score > highScore) {
       highScore = score;
     }
