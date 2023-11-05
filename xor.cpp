@@ -8,7 +8,7 @@ void playGame() {
   cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
   char choice = '\n';
   int mult = 1;
-  int xSize = 9;
+  int xSize = 5;
   printMenu(xSize, mult);
   int score = 0;
   int highScore = 50;
@@ -36,6 +36,10 @@ void playGame() {
     if (choice == 'q' || choice == 'Q') {
       outfile << highScore;
       outfile.close();
+      cout << "Your Score: " << score << endl;
+      if (score >= highScore){
+        cout << "NEW HIGH SCORE!" << endl;
+      }
       break;
     }
 
@@ -68,18 +72,26 @@ void printMenu(int &xSize, int &mult) {
     std::cout << "Type Enter To Start: ";
     std::cin >> userInput;
   }
-
-  std::cout << "\n\nDifficulty (Easy - Medium - Hard): ";
+  userInput = ".";
+  while (userInput != "Enter" && userInput != "enter") {
+    std::cout << "\n\n\n\nControls:\n\"D or d\": move to the right " << endl;
+    std::cout << "\"A or a\": move to the right " << endl;
+    std::cout << "\"F or f\": fire (destroys enemies)\nCommands can be chained (ex. fddfaf) " << endl;
+    std::cout << "Chaining commands after game-over forces \nquit (Its a feature not a bug)" << endl;
+    std::cout << "Type Enter To Start: ";
+    std::cin >> userInput;
+  }
+  std::cout << "\n\n\n\n\nDifficulty (Normal - Hard - Impossible): ";
   std::cin >> userInput;
 
-  if (userInput == "Easy") {
+  if (userInput == "Normal") {
     xSize = 5;
     mult = 1;
-  } else if (userInput == "Medium") {
+  } else if (userInput == "Hard") {
     xSize = 9;
     mult = 2;
 
-  } else if (userInput == "Hard") {
+  } else if (userInput == "Impossible") {
     xSize = 15;
     mult = 3;
   }
