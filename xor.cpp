@@ -1,6 +1,10 @@
 #include "xor.h"
 
 void playGame() {
+  string fileName = "scores.txt";
+  ifstream infile;
+  ofstream outfile;
+  char scoreChoi = '\n';
   cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
   char choice = '\n';
   int mult = 1;
@@ -11,7 +15,14 @@ void playGame() {
   char gameBoard[xSize][MAX_Y_SIZE]; // Gameboard
   setupBoard(gameBoard, xSize, score);
   int playPos = 0;
-
+  cout << "Would you like to load high scores? (y or n) ";
+  cin >> scoreChoi;
+  if (scoreChoi == 'y'){
+    infile.open(fileName);
+    infile >> highScore;
+  }
+  infile.close();
+  outfile.open(fileName);
   while (choice != 'q' || choice != 'Q') {
     cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     if (score > highScore) {
@@ -23,7 +34,9 @@ void playGame() {
     cin >> choice;
 
     if (choice == 'q' || choice == 'Q') {
-      return;
+      outfile << highScore;
+      outfile.close();
+      break;
     }
 
     if (validateMove(choice, playPos, xSize)) {
@@ -32,10 +45,11 @@ void playGame() {
       } else {
         movePlayer(choice, gameBoard, playPos);
       }
-      runTurn(xSize, gameBoard, score, mult, highScore);
+      runTurn(xSize, gameBoard, score, mult, highScore, outfile);
     }
   }
   cout << "Thanks for playing!" << endl;
+  return;
 }
 
 void printMenu(int &xSize, int &mult) {
@@ -73,7 +87,7 @@ void printMenu(int &xSize, int &mult) {
   cout << "\n\n______STARTING XOR______\n\n";
 }
 
-void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int highScore){
+void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int highScore, ofstream& outfile){
   char cont = '\n';
   int ran = rand() % 2;
   for (int j = 11; j >= 0; j--) {
@@ -91,6 +105,8 @@ void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int 
             return;
           }
           else {
+            outfile << highScore;
+            outfile.close();
             exit(0);
           }
         }
