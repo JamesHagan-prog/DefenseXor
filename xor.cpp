@@ -75,7 +75,7 @@ void printMenu(int &xSize, int &mult) {
   userInput = ".";
   while (userInput != "Enter" && userInput != "enter") {
     std::cout << "\n\n\n\nControls:\n\"D or d\": move to the right " << endl;
-    std::cout << "\"A or a\": move to the right " << endl;
+    std::cout << "\"A or a\": move to the left " << endl;
     std::cout << "\"F or f\": fire (destroys enemies)\nCommands can be chained (ex. fddfaf) " << endl;
     std::cout << "Chaining commands after game-over forces \nquit (Its a feature not a bug)" << endl;
     std::cout << "Type Enter To Start: ";
