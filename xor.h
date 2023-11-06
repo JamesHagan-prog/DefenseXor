@@ -16,8 +16,8 @@ void setupBoard(char gameBoard[][MAX_Y_SIZE], int xSize, int &score);
 void printMenu(int &xVal, int &mult);
 void playGame();
 void displayBoard(char gameBoard[][MAX_Y_SIZE], int score, int highScore,
-                  int xSize);
-void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int highScore, ofstream& outfile);
+                  int xSize, string highName);
+void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int highScore, ofstream& outfile, string &highName);
 bool validateMove(char choice, int, int);
 void fire(int playerPos, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int &highScore);
 int findPlayerPosition(char gameBoard[][MAX_Y_SIZE], int);

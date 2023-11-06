@@ -5,6 +5,7 @@ void playGame() {
   ifstream infile;
   ofstream outfile;
   char scoreChoi = '\n';
+  string highName = "STR";
   cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
   char choice = '\n';
   int mult = 1;
@@ -20,6 +21,7 @@ void playGame() {
   if (scoreChoi == 'y'){
     infile.open(fileName);
     infile >> highScore;
+    infile >> highName;
   }
   infile.close();
   outfile.open(fileName);
@@ -29,17 +31,20 @@ void playGame() {
       highScore = score;
     }
     playPos = findPlayerPosition(gameBoard, xSize);
-    displayBoard(gameBoard, score, highScore, xSize);
+    displayBoard(gameBoard, score, highScore, xSize, highName);
     cout << "Enter your move: ";
     cin >> choice;
 
     if (choice == 'q' || choice == 'Q') {
-      outfile << highScore;
-      outfile.close();
       cout << "Your Score: " << score << endl;
       if (score >= highScore){
         cout << "NEW HIGH SCORE!" << endl;
+        cout << "ENTER NEW NAME (3 CHARACTERS)" << endl;
+        cin >> highName;
       }
+      outfile << highScore << endl;
+      outfile << highName;
+      outfile.close();
       break;
     }
 
@@ -49,7 +54,7 @@ void playGame() {
       } else {
         movePlayer(choice, gameBoard, playPos);
       }
-      runTurn(xSize, gameBoard, score, mult, highScore, outfile);
+      runTurn(xSize, gameBoard, score, mult, highScore, outfile, highName);
     }
   }
   cout << "Thanks for playing!" << endl;
@@ -99,7 +104,7 @@ void printMenu(int &xSize, int &mult) {
   cout << "\n\n______STARTING XOR______\n\n";
 }
 
-void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int highScore, ofstream& outfile){
+void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int highScore, ofstream& outfile, string &highName){
   char cont = '\n';
   int ran = rand() % 2;
   for (int j = 11; j >= 0; j--) {
@@ -109,6 +114,8 @@ void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int 
           cout << "GAME OVER" << endl << "Your Score: " << score << endl;
           if (score >= highScore){
             cout << "NEW HIGH SCORE!" << endl;
+            cout << "ENTER NEW NAME (3 CHARACTERS)" << endl;
+            cin >> highName;
           }
           cout << "Would you like to Continue? (y or n) ";
           cin >> cont;
@@ -117,7 +124,8 @@ void runTurn(int xSize, char gameBoard[][MAX_Y_SIZE], int &score, int mult, int 
             return;
           }
           else {
-            outfile << highScore;
+            outfile << highScore << endl;
+            outfile << highName;
             outfile.close();
             exit(0);
           }
@@ -154,8 +162,8 @@ void setupBoard(char gameBoard[][MAX_Y_SIZE], int xSize,int &score) {
 void printMenu() {}
 
 void displayBoard(char gameBoard[][MAX_Y_SIZE], int score, int highScore,
-                  int xSize) {
-  cout << "Score: " << score << " High Score: " << highScore << endl;
+                  int xSize, string highName) {
+  cout << "Score: " << score << " High Score: " << highScore << " " << highName << endl;
   for (int i = 0; i < xSize; i++)
     cout << "--";
   cout << "-" << endl;
